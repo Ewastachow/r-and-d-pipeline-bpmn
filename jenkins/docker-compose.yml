@@ -1,6 +1,29 @@
 version: "3.7"
 
 services:
+#  ulimits:
+#    nofile:
+#      soft: 65536
+#      hard: 65536
+  sonarqube:
+    image: sonarqube
+    expose:
+      - 9000
+    ports:
+      - "127.0.0.1:9000:9000"
+#    networks:
+#      - randdnet
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://db/sonar
+  db:
+    image: postgres
+#    networks:
+#      - randdnet
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
   jenkins:
     build:
       context: .
@@ -14,8 +37,14 @@ services:
       ANSIBLE_CONFIG: /home/jenkins/ansible/ansible.cfg
     ports:
       - 9080:8080
+#    networks:
+#      - randdnet
     volumes:
       - $HOME/data/jenkins:$JENKINS_HOME
       - ./bashrc:$JENKINS_HOME/.bashrc
       - ./jenkins.yml:$CASC_JENKINS_CONFIG
       - /var/run/docker.sock:/var/run/docker.sock
+#  networks:
+#    randdnet:
+#      external:
+#        name: randdnet

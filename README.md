@@ -5,3 +5,4 @@ https://www.apoehlmann.com/blog/setting-up-jenkins-docker-with-jenkins-configura
 ./docker_run.sh restart
 
 https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
+docker network create randdnet
