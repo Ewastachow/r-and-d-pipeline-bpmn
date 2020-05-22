@@ -22,7 +22,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && apt update && apt install -y docker-ce-cli \
     && rm -rf /var/lib/apt/lists/*
 
-USER jenkins
+# USER jenkins
 
 # copy plugins.txt to the $REF/init.groovy.d directory
 # that is already set up by the base jenkins image
