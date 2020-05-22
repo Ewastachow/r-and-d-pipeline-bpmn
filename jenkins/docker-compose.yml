@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  jenkins:
+    build:
+      context: .
+      args:
+        USER_GID: $USER_GID
+        USER_ID: $USER_ID
+    image: randdbpmnpipeline/jenkins
+    environment:
+      CASC_JENKINS_CONFIG: $CASC_JENKINS_CONFIG
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      ANSIBLE_CONFIG: /home/jenkins/ansible/ansible.cfg
+    ports:
+      - 9080:8080
+    volumes:
+      - $HOME/data/jenkins:$JENKINS_HOME
+      - ./bashrc:$JENKINS_HOME/.bashrc
+      - ./jenkins.yml:$CASC_JENKINS_CONFIG
+      - /var/run/docker.sock:/var/run/docker.sock
