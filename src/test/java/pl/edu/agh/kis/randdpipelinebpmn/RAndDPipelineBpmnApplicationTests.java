@@ -1,13 +1,13 @@
 package pl.edu.agh.kis.randdpipelinebpmn;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RAndDPipelineBpmnApplicationTests {
+public class RAndDPipelineBpmnApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }
