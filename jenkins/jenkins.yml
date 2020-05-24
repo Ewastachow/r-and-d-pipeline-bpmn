@@ -1,5 +1,15 @@
+plugins:
+  required:
+    git: latest
+    pipeline-model-definition: latest
+    pipeline-stage-step: latest
+    pipeline-maven: latest
+    workflow-aggregator: latest
+    junit: latest
+  sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
 jenkins:
-  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   authorizationStrategy:
     roleBased:
       roles:
@@ -23,51 +33,20 @@ jenkins:
       users:
         - id: "admin"
           password: "admin"
-  clouds:
-    - docker:
-        dockerApi:
-          dockerHost:
-            uri: "unix://var/run/docker.sock"
-        name: "docker"
-        templates:
-          - labelString: "deploy"
-            name: "jnlp"
-            dockerTemplateBase:
-              image: "jenkins/jnlp-slave:alpine"
-            pullStrategy: PULL_LATEST
-            remoteFs: "/home/jenkins"
-            connector: attach
-unclassified:
-  location:
-    url: "http://127.0.0.1:9080/"
-  shell:
-    shell: "/bin/bash"
 tool:
-  maven:
+  git:
     installations:
-      - name: "maven3"
+      - home: "git"
+        name: "Default"
+  jdk: # (3)
+    installations:
+      - home: "/docker-java-home"
+        name: "jdk"
+  maven: # (4)
+    installations:
+      - name: "maven"
         properties:
           - installSource:
               installers:
                 - maven:
-                    id: "3.6.3"
-  jdk:
-    installations:
-      - name: jdk8
-        properties:
-          - installSource:
-              installers:
-                - jdkInstaller:
-                    id: "jdk-8u181-oth-JPR"
-                    acceptLicense: true
-jobs:
-  - script: >
-      multibranchPipelineJob('r-and-d-pipeline-bpmn') {
-        branchSources {
-          git {
-            id = 'r-and-d-pipeline-bpmn'
-            remote('https://github.com/Ewastachow/r-and-d-pipeline-bpmn.git')
-          }
-        }
-        scriptPath 'r-and-d-service/.jenkins/Jenkinsfile.groovy'
-      }
+                    id: "3.5.4"
