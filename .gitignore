@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Jenkins ###
+jenkins2/jenkins_home/*
+!jenkins2/jenkins_home/*.xml
+!jenkins2/jenkins_home/**/*.xml

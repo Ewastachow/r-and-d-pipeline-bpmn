@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    restart: unless-stopped
+    ports:
+      - 8001:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+  sonarqube:
+    image: sonarqube:lts
+    ports:
+      - 9000:9000
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://db/sonar
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
