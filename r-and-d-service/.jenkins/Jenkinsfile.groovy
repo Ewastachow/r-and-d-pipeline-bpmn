@@ -7,14 +7,9 @@ pipeline {
         maven 'maven3'
     }
     stages {
-        stage('hello world') {
+        stage('test') {
             steps {
-                echo "hello world"
-            }
-        }
-        stage('install') {
-            steps {
-                sh 'mvn clean install'
+                sh 'mvn clean test'
             }
             post {
                 always {
