@@ -1,8 +1,20 @@
-# Jenkins
-https://bitbucket.org/reinka/blog/src/master/jenkins/
-https://www.apoehlmann.com/blog/setting-up-jenkins-docker-with-jenkins-configuration-as-code-plugin/
-./docker_run.sh up --build
-./docker_run.sh restart
+# R&D BPMN in projects development
 
-https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
-docker network create randdnet
+## Jenkins
+Jenkins login: admin/admin
+Sonar login: admin/admin
+
+## BPMN code coverage
+https://github.com/camunda/camunda-bpm-process-test-coverage
+
+## Jenkow - Jenkins in BPMN Workflows
+### 2012 San Fran JUC: Max Spring - Business Process Model and Notation (BPMN) Workflows in Jenkins
+https://www.youtube.com/watch?v=lcZh2tvqC-A
+
+TODO
+
+## jBPM - 
+https://plugins.jenkins.io/jbpm-workflow-plugin/
+https://plugins.jenkins.io/jbpm-embedded-plugin/
+https://wiki.jenkins.io/display/JENKINS/jBPM+Integration+with+Jenkins
+TODO
