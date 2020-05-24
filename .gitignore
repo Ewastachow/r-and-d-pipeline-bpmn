@@ -30,7 +30,23 @@ build/
 ### VS Code ###
 .vscode/
 
+
 ### Jenkins ###
-jenkins2/jenkins_home/*
+jenkins2/jenkins_home/*.*
 !jenkins2/jenkins_home/*.xml
-!jenkins2/jenkins_home/**/*.xml
+
+jenkins2/jenkins_home/*/*.*
+!jenkins2/jenkins_home/*/*.xml
+
+jenkins2/jenkins_home/*/*/*.*
+!jenkins2/jenkins_home/*/*/*.xml
+
+jenkins2/jenkins_home/*/*/*/*
+
+!jenkins2/jenkins_home/jobs
+jenkins2/jenkins_home/jobs/*/*
+!jenkins2/jenkins_home/jobs/*/config.xml
+
+!jenkins2/jenkins_home/plugins
+jenkins2/jenkins_home/plugins/*
+!jenkins2/jenkins_home/plugins/*.jpi
