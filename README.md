@@ -3,9 +3,13 @@
 ## Jenkins
 Jenkins login: admin/admin
 Sonar login: admin/admin
+Pierwsze odpalenie joba może trwać długo (do godziny) ponieważ pobierane są wszystkie zależności
 
 ## BPMN code coverage
 https://github.com/camunda/camunda-bpm-process-test-coverage
+
+
+https://bpmn.io/toolkit/bpmn-js/
 
 ## Jenkow - Jenkins in BPMN Workflows
 ### 2012 San Fran JUC: Max Spring - Business Process Model and Notation (BPMN) Workflows in Jenkins
