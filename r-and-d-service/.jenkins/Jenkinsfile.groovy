@@ -3,6 +3,7 @@
 pipeline {
     agent any
     tools {
+        maven 'openjdk11'
         maven 'maven3'
     }
     stages {
@@ -15,11 +16,11 @@ pipeline {
             steps {
                 sh 'mvn clean install'
             }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'r-and-d-service/target/process-test-coverage/*/*.html', onlyIfSuccessful: true
-                }
-            }
+//            post {
+//                always {
+//                    archiveArtifacts artifacts: 'r-and-d-service/target/process-test-coverage/*/*.html', onlyIfSuccessful: true
+//                }
+//            }
         }
     }
 }

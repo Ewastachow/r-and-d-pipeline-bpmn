@@ -32,21 +32,23 @@ build/
 
 
 ### Jenkins ###
-jenkins2/jenkins_home/*.*
-!jenkins2/jenkins_home/*.xml
+r-and-d-infrastructure/jenkins_home_backup
 
-jenkins2/jenkins_home/*/*.*
-!jenkins2/jenkins_home/*/*.xml
+r-and-d-infrastructure/jenkins_home/*.*
+!r-and-d-infrastructure/jenkins_home/*.xml
 
-jenkins2/jenkins_home/*/*/*.*
-!jenkins2/jenkins_home/*/*/*.xml
+r-and-d-infrastructure/jenkins_home/*/*.*
+!r-and-d-infrastructure/jenkins_home/*/*.xml
 
-jenkins2/jenkins_home/*/*/*/*
+r-and-d-infrastructure/jenkins_home/*/*/*.*
+!r-and-d-infrastructure/jenkins_home/*/*/*.xml
 
-!jenkins2/jenkins_home/jobs
-jenkins2/jenkins_home/jobs/*/*
-!jenkins2/jenkins_home/jobs/*/config.xml
+r-and-d-infrastructure/jenkins_home/*/*/*/*
 
-!jenkins2/jenkins_home/plugins
-jenkins2/jenkins_home/plugins/*
-!jenkins2/jenkins_home/plugins/*.jpi
+!r-and-d-infrastructure/jenkins_home/jobs
+r-and-d-infrastructure/jenkins_home/jobs/*/*
+!r-and-d-infrastructure/jenkins_home/jobs/*/config.xml
+
+!r-and-d-infrastructure/jenkins_home/plugins
+r-and-d-infrastructure/jenkins_home/plugins/*
+!r-and-d-infrastructure/jenkins_home/plugins/*.jpi
