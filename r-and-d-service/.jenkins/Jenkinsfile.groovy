@@ -16,6 +16,9 @@ pipeline {
                 )
         )
     }
+    parameters {
+        booleanParam(name: 'WITH_SONAR', defaultValue: false, description: 'Should run Sonar analysis?')
+    }
     stages {
         stage('Compile') {
             steps {
@@ -27,15 +30,15 @@ pipeline {
                 sh 'mvn test'
             }
             post {
-                always {
-                    junit '**/surefire-reports/*.xml'
-                }
                 success {
                     archiveArtifacts artifacts: '**/process-test-coverage/*/*.html'
                 }
             }
         }
         stage('Sonar') {
+            when {
+                expression { return params.WITH_SONAR }
+            }
             steps {
                 dir('r-and-d-service') {
                     withSonarQubeEnv('SonarQube') {
