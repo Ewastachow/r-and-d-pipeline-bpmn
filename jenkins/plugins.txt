@@ -8,6 +8,7 @@ ldap
 pipeline-github-lib
 pipeline-stage-view
 pipeline-utility-steps
+pipeline-maven
 rebuild
 role-strategy
 ssh-credentials

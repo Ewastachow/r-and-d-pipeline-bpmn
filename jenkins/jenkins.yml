@@ -42,3 +42,32 @@ unclassified:
     url: "http://127.0.0.1:9080/"
   shell:
     shell: "/bin/bash"
+tool:
+  maven:
+    installations:
+      - name: "maven3"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.6.3"
+  jdk:
+    installations:
+      - name: jdk8
+        properties:
+          - installSource:
+              installers:
+                - jdkInstaller:
+                    id: "jdk-8u181-oth-JPR"
+                    acceptLicense: true
+jobs:
+  - script: >
+      multibranchPipelineJob('r-and-d-pipeline-bpmn') {
+        branchSources {
+          git {
+            id = 'r-and-d-pipeline-bpmn'
+            remote('https://github.com/Ewastachow/r-and-d-pipeline-bpmn.git')
+          }
+        }
+        scriptPath 'r-and-d-service/.jenkins/Jenkinsfile.groovy'
+      }
