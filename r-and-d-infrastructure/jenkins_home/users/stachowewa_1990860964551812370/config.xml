@@ -1,8 +1,8 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <user>
   <version>10</version>
-  <id>admin</id>
-  <fullName>Admin</fullName>
+  <id>stachow.ewa</id>
+  <fullName>stachow.ewa</fullName>
   <properties>
     <jenkins.security.ApiTokenProperty>
       <tokenStore>
@@ -33,23 +33,14 @@
       <collapsed/>
     </hudson.model.PaneStatusProperties>
     <jenkins.security.seed.UserSeedProperty>
-      <seed>79fd3aed48619264</seed>
+      <seed>fcbd6f70631ff512</seed>
     </jenkins.security.seed.UserSeedProperty>
     <hudson.search.UserSearchProperty>
       <insensitiveSearch>true</insensitiveSearch>
     </hudson.search.UserSearchProperty>
     <hudson.model.TimeZoneProperty/>
-    <hudson.security.HudsonPrivateSecurityRealm_-Details>
-      <passwordHash>#jbcrypt:$2a$10$meA6zXMCiXwWlaTYnzc14uoMNmJcqxiUKJA2Og2TjUQKgpuiC.SNS</passwordHash>
-    </hudson.security.HudsonPrivateSecurityRealm_-Details>
     <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.32">
-      <emailAddress>admin@admin</emailAddress>
+      <emailAddress>stachow.ewa@gmail.com</emailAddress>
     </hudson.tasks.Mailer_-UserProperty>
-    <jenkins.security.LastGrantedAuthoritiesProperty>
-      <roles>
-        <string>authenticated</string>
-      </roles>
-      <timestamp>1590322432733</timestamp>
-    </jenkins.security.LastGrantedAuthoritiesProperty>
   </properties>
 </user>
