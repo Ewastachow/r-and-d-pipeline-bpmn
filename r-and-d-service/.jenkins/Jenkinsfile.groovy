@@ -39,10 +39,38 @@ pipeline {
             when {
                 expression { return params.WITH_SONAR }
             }
-            steps {
-                dir('r-and-d-service') {
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar'
+            stages {
+                stage('Sonar PR') {
+                    when {
+                        branch pattern: "PR-\\d+", comparator: "REGEXP"
+                    }
+                    environment {
+                        PR_ID = "${BRANCH_NAME}".replace("PR-", "")
+                        SONAR_PR_PARAMS = "-Dsonar.pullrequest.key=${PR_ID} -Dsonar.pullrequest.branch=${CHANGE_BRANCH} -Dsonar.pullrequest.base=${CHANGE_TARGET}"
+                    }
+                    steps {
+                        dir('r-and-d-service') {
+                            withSonarQubeEnv('SonarQube') {
+                                sh "mvn sonar:sonar ${SONAR_PR_PARAMS}"
+                            }
+                        }
+                    }
+                }
+                stage('Sonar branch') {
+                    when {
+                        not {
+                            branch pattern: "PR-\\d+", comparator: "REGEXP"
+                        }
+                    }
+                    environment {
+                        SONAR_BRANCH_PARAMS = "-Dsonar.branch.name=${BRANCH_NAME}"
+                    }
+                    steps {
+                        dir('r-and-d-service') {
+                            withSonarQubeEnv('SonarQube') {
+                                sh "mvn sonar:sonar ${SONAR_BRANCH_PARAMS}"
+                            }
+                        }
                     }
                 }
             }
