@@ -30,6 +30,69 @@ w `r-and-d-infrastructure/jenkins_home`, automatycznie załączany dla `r-and-d-
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
+Konfiguracja główna:
+
+```xml
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>2.222.3</version>
+  <installStateName>RUNNING</installStateName>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
+    <denyAnonymousReadAccess>true</denyAnonymousReadAccess>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULL_NAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <jdks>
+    <jdk>
+      <name>openjdk11</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <io.jenkins.plugins.adoptopenjdk.AdoptOpenJDKInstaller plugin="adoptopenjdk@1.2">
+              <id>jdk-11.0.7+10.2</id>
+            </io.jenkins.plugins.adoptopenjdk.AdoptOpenJDKInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>50000</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+  <noUsageStatistics>true</noUsageStatistics>
+</hudson>
+```
+
 #### Multibranch pipeline
 Pierwsze odpalenie joba może trwać długo (do godziny) ponieważ pobierane są wszystkie zależności
 ![multibranch_pipeline](doc/multibranch_pipeline.png)
@@ -109,6 +172,8 @@ Publish:
             }
         }
 ```
+
+![build_legacy_view](doc/build_legacy_view.png)
 
 ### SonarQube
 #### Środowisko
@@ -251,6 +316,8 @@ Parametry wywołania
 https://github.com/camunda/camunda-bpm-process-test-coverage
 
 https://bpmn.io/toolkit/bpmn-js/
+
+![build_legacy_view](doc/bluocean_artifacts.png)
 
 ## Jenkow - Jenkins in BPMN Workflows
 ### Business Process Model and Notation (BPMN) Workflows in Jenkins
