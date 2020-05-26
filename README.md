@@ -328,7 +328,8 @@ do wizualizacji, przy czym jednoczenie source niezbędne do wizualizacji są umi
 ### Przykład z projektu
 
 Plik dla projektu: `r-and-d-service/target/process-test-coverage/pl.edu.agh.kis.randdpipelinebpmn.BoundaryEventCoverageTest/testPathA_BoundaryEventTest.html`
-[http://localhost:63342/r-and-d-pipeline-bpmn/r-and-d-service/target/process-test-coverage/pl.edu.agh.kis.randdpipelinebpmn.BoundaryEventCoverageTest/testPathA_BoundaryEventTest.html](http://localhost:63342/r-and-d-pipeline-bpmn/r-and-d-service/target/process-test-coverage/pl.edu.agh.kis.randdpipelinebpmn.BoundaryEventCoverageTest/testPathA_BoundaryEventTest.html)
+
+Uruchomienie pliku html z takie lokalizacji po zbudowaniu projketu pozwala na poprawne wyświetlenie diagramu
 
 ![project_bpmn_coverage_generated](doc/project_bpmn_coverage_generated.png)
 
@@ -403,10 +404,35 @@ public class BoundaryEventCoverageTest {
     @Test
     @Deployment(resources = BPMN_PATH)
     public void testPathA() {
-
         rule.getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
     }
 
+}
+```
+
+Inny przykład parametryzowany:
+```java
+public class MultipleDeploymentsForIndividualTestsTest {
+
+    private static final String PROCESS_DEFINITION_KEY = "super-process-test-coverage";
+    
+    @Rule
+    @ClassRule
+    public static TestCoverageProcessEngineRule rule = TestCoverageProcessEngineRuleBuilder.create().build();
+
+    @Test
+    @Deployment(resources = { "superProcess.bpmn", "process.bpmn" })
+    public void testPathAAndSuperPathA() {
+        
+        Map<String, Object> variables = new HashMap<String, Object>();
+        variables.put("path", "A");
+        variables.put("superPath", "A");
+        rule.getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+        
+        rule.addTestMethodCoverageAssertionMatcher("testPathAAndSuperPathA", greaterThan(6.9 / 11.0));
+        rule.addTestMethodCoverageAssertionMatcher("testPathAAndSuperPathA", lessThan(9 / 11.0));
+
+    }
 }
 ```
 
