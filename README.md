@@ -107,7 +107,7 @@ Pipeline znajduje się: [r-and-d-service/.jenkins/Jenkinsfile.groovy](r-and-d-se
 pipeline {
     agent any
     tools {
-        maven 'openjdk11'
+        jdk 'openjdk11'
         maven 'maven3'
     }
     options {
@@ -132,8 +132,14 @@ pipeline {
         }
     }
 }
-
 ```
+
+`timestamps()` - dodaje timestamp do logów
+`disableConcurrentBuilds()` - nie pozwala na odpalenie jednocześnie wielu buildów dla joba (przy czym należy pamiętać że multibranch pipeline może tworzyć jednocześnie wiele niezależnych jobów)
+`buildDiscarder(...)` - konfiguracja przez ile czasu będzie trzymana hostoria buidlów
+`cleanWs()` - czyszczenie workspace
+
+Więcej informacji na temat składni pipelinów: [https://www.jenkins.io/doc/book/pipeline/syntax/](https://www.jenkins.io/doc/book/pipeline/syntax/)
 
 #### Stages
 ![blueocean_flow](doc/blueocean_flow.png)
