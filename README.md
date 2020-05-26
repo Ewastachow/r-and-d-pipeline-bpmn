@@ -422,12 +422,19 @@ archiveArtifacts artifacts: '**/process-test-coverage/*/*.html'
 ### Business Process Model and Notation (BPMN) Workflows in Jenkins
 [2012 San Fran JUC: Max Spring - Business Process Model and Notation (BPMN) Workflows in Jenkins](https://www.youtube.com/watch?v=lcZh2tvqC-A)
 Przykład zastosowania jenkisa w procesach biznesowych modelowanych za pomocą BPMN
+[Prezentacja z prelekcji](https://github.com/jenkinsci/jenkow-plugin/blob/master/docs/juc-sf2012-mspring-jenkow.pdf) - screeny w tej sekcji pochodzą z tej prezentacji
 
 Niestety projekt jest już nie utrzymywany, ale bardzo mocno wpasowuje się w tematykę.
 [https://wiki.jenkins.io/display/JENKINS/Jenkow+Plugin](https://wiki.jenkins.io/display/JENKINS/Jenkow+Plugin)
 
+Działanie bazuje na silniku Activity
 
-TODO
+![jenkow_model](doc/jenkow_model.png)
+![jenkow_execution_sequence](doc/jenkow_execution_sequence.png)
+
+Ze względu na to że projekt nie jest utrzymywany i nie jest kompatybilny z Jenkinsem w wersji 2 pliki hpi zostały usunięte z repozytorium pluginów jenkinsa,
+umieściłam je w katalogu `jenkow`, niestety nie gwarantuje pomyślnego uruchomienia flow nawet z ich pomocą.
+Instrukcja konfiguracji: [https://wiki.jenkins.io/pages/viewpage.action?pageId=60918754](https://wiki.jenkins.io/pages/viewpage.action?pageId=60918754)
 
 ## jBPM
 https://plugins.jenkins.io/jbpm-workflow-plugin/
