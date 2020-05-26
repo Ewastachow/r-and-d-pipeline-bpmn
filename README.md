@@ -420,8 +420,12 @@ archiveArtifacts artifacts: '**/process-test-coverage/*/*.html'
 
 ## Jenkow - Jenkins in BPMN Workflows
 ### Business Process Model and Notation (BPMN) Workflows in Jenkins
-2012 San Fran JUC: Max Spring - Business Process Model and Notation (BPMN) Workflows in Jenkins
-https://www.youtube.com/watch?v=lcZh2tvqC-A
+[2012 San Fran JUC: Max Spring - Business Process Model and Notation (BPMN) Workflows in Jenkins](https://www.youtube.com/watch?v=lcZh2tvqC-A)
+Przykład zastosowania jenkisa w procesach biznesowych modelowanych za pomocą BPMN
+
+Niestety projekt jest już nie utrzymywany, ale bardzo mocno wpasowuje się w tematykę.
+[https://wiki.jenkins.io/display/JENKINS/Jenkow+Plugin](https://wiki.jenkins.io/display/JENKINS/Jenkow+Plugin)
+
 
 TODO
 
