@@ -99,7 +99,7 @@ Pierwsze odpalenie joba może trwać długo (do godziny) ponieważ pobierane są
 
 ![mutlibranch_pipeline_config](doc/multibranch_pipeline_config.png)
 
-Pipeline znajduje się: `r-and-d-service/.jenkins/Jenkinsfile.groovy`
+Pipeline znajduje się: [r-and-d-service/.jenkins/Jenkinsfile.groovy](r-and-d-service/.jenkins/Jenkinsfile.groovy)
 
 ```groovy
 #!/usr/bin/env groovy
@@ -313,10 +313,103 @@ Parametry wywołania
 ![sonarqube_ui](doc/sonarqube.png)
 
 ## BPMN code coverage
-https://github.com/camunda/camunda-bpm-process-test-coverage
+Źródło: [https://github.com/camunda/camunda-bpm-process-test-coverage](https://github.com/camunda/camunda-bpm-process-test-coverage)
+![bpmn_coverage](doc/bpmn_coverage.png)
 
-https://bpmn.io/toolkit/bpmn-js/
+Plugin generuje wizualizację pokrycia ścieżki jako plik html, który wymaga [bpmn-js](https://bpmn.io/toolkit/bpmn-js/) 
+do wizualizacji, przy czym jednoczenie source niezbędne do wizualizacji są umieszczane w folderze `target` razem z plikami `html`
 
+### Przykład z projektu
+
+Plik dla projektu: `r-and-d-service/target/process-test-coverage/pl.edu.agh.kis.randdpipelinebpmn.BoundaryEventCoverageTest/testPathA_BoundaryEventTest.html`
+[http://localhost:63342/r-and-d-pipeline-bpmn/r-and-d-service/target/process-test-coverage/pl.edu.agh.kis.randdpipelinebpmn.BoundaryEventCoverageTest/testPathA_BoundaryEventTest.html](http://localhost:63342/r-and-d-pipeline-bpmn/r-and-d-service/target/process-test-coverage/pl.edu.agh.kis.randdpipelinebpmn.BoundaryEventCoverageTest/testPathA_BoundaryEventTest.html)
+
+![project_bpmn_coverage_generated](doc/project_bpmn_coverage_generated.png)
+
+Testowany plik BPMN: [boundaryEventTest.bpmn](r-and-d-service/src/main/resources/boundaryEventTest.bpmn)
+
+#### Configuration
+
+Wymagany plik w resources dla testów: [camunda.cfg.xml](r-and-d-service/src/test/resources/camunda.cfg.xml)
+
+```xml
+<project>
+    <dependencies>
+		<dependency>
+			<groupId>org.camunda.bpm.extension</groupId>
+			<artifactId>camunda-bpm-process-test-coverage</artifactId>
+			<version>0.3.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.camunda.bpm</groupId>
+			<artifactId>camunda-engine</artifactId>
+			<version>${camunda.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.camunda.bpm</groupId>
+			<artifactId>camunda-engine-spring</artifactId>
+			<version>${camunda.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+		<dependency>
+			<!-- Needed for InMemoryH2Test -->
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.168</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Needed to test SpringProcessWithCoverageTest -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.1.2.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Needed to test SpringProcessWithCoverageTest -->
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+			<scope>test</scope>
+		</dependency>    
+    </dependencies>
+</project>
+```
+
+Test:
+```java
+public class BoundaryEventCoverageTest {
+
+    private static final String BPMN_PATH = "boundaryEventTest.bpmn";
+    private static final String PROCESS_DEFINITION_KEY = "BoundaryEventTest";
+
+    @Rule
+    public TestCoverageProcessEngineRule rule = TestCoverageProcessEngineRuleBuilder.create().withDetailedCoverageLogging().build();
+
+    @Test
+    @Deployment(resources = BPMN_PATH)
+    public void testPathA() {
+
+        rule.getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
+    }
+
+}
+```
+
+#### Archiwizacja wyników przy użyciu pipelinu
+
+Pipeline archiwizuje wygenerowane diagramy jako artefakty:
+```groovy
+archiveArtifacts artifacts: '**/process-test-coverage/*/*.html'
+```
 ![build_legacy_view](doc/bluocean_artifacts.png)
 
 ## Jenkow - Jenkins in BPMN Workflows
