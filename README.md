@@ -29,9 +29,9 @@ w `r-and-d-infrastructure/jenkins_home`, automatycznie załączany dla `r-and-d-
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
 ```
-Pierwsze odpalenie joba może trwać długo (do godziny) ponieważ pobierane są wszystkie zależności
 
 #### Multibranch pipeline
+Pierwsze odpalenie joba może trwać długo (do godziny) ponieważ pobierane są wszystkie zależności
 ![multibranch_pipeline](doc/multibranch_pipeline.png)
 
 ![mutlibranch_pipeline_config](doc/multibranch_pipeline_config.png)
@@ -70,6 +70,44 @@ pipeline {
     }
 }
 
+```
+
+#### Stages
+![blueocean_flow](doc/blueocean_flow.png)
+Kompilacja:
+```groovy
+        stage('Compile') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+```
+Testy:
+```groovy
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: '**/process-test-coverage/*/*.html'
+                }
+            }
+        }
+```
+Publish:
+```groovy
+        stage('Publish') {
+            steps {
+                sh 'mvn package -Dskip.tests'
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: '**/pom.xml'
+                    archiveArtifacts artifacts: 'r-and-d-service/target/r-and-d-service-*.jar'
+                }
+            }
+        }
 ```
 
 ### SonarQube
@@ -141,6 +179,70 @@ Parametry wywołania
                 }
             }
         }
+```
+#### Konfiguracja mavena
+```xml
+<project>
+...
+	<properties>
+		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
+			</plugin>
+		</plugins>
+	</build>
+...
+</project>
+```
+#### Konfiguracja jenkins
+```xml
+<hudson.plugins.sonar.SonarGlobalConfiguration plugin="sonar@2.11">
+  <jenkinsSupplier class="hudson.plugins.sonar.SonarGlobalConfiguration$$Lambda$263/1722858414"/>
+  <installations>
+    <hudson.plugins.sonar.SonarInstallation>
+      <name>SonarQube</name>
+      <serverUrl>http://sonarqube:9000</serverUrl>
+      <credentialsId></credentialsId>
+      <webhookSecretId></webhookSecretId>
+      <mojoVersion></mojoVersion>
+      <additionalProperties></additionalProperties>
+      <additionalAnalysisProperties></additionalAnalysisProperties>
+      <triggers>
+        <skipScmCause>false</skipScmCause>
+        <skipUpstreamCause>false</skipUpstreamCause>
+        <envVar></envVar>
+      </triggers>
+    </hudson.plugins.sonar.SonarInstallation>
+  </installations>
+  <buildWrapperEnabled>false</buildWrapperEnabled>
+  <dataMigrated>true</dataMigrated>
+  <credentialsMigrated>true</credentialsMigrated>
+</hudson.plugins.sonar.SonarGlobalConfiguration>
 ```
 #### UI
 ![sonarqube_ui](doc/sonarqube.png)
