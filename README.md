@@ -453,7 +453,20 @@ Przykład zastosowania jenkisa w procesach biznesowych modelowanych za pomocą B
 Niestety projekt jest już nie utrzymywany, ale bardzo mocno wpasowuje się w tematykę.
 [https://wiki.jenkins.io/display/JENKINS/Jenkow+Plugin](https://wiki.jenkins.io/display/JENKINS/Jenkow+Plugin)
 
-Działanie bazuje na silniku Activity
+Działanie bazuje na silniku Activity:
+* open source
+* bazuje na javie (tak jak jenkins)
+* wsparcie dla eclipse w kontekście tworzenia diagramów
+
+#### Co jak poco dlaczego
+Problem: orchiestracja jobów - ogarnięcie zależności między nimi
+
+* Dodanie `Jenkins task` jak dowolnego innego taska w takim diagramie (np. `User task` / `Script task`).
+* Zachowane są zależnośi między nimi tak jak pomiędzy dowolnymi innymi taskami w diagramach BPMN. 
+* Integracja pomiędzy zadaniami jenkinsowymi a zadaniami ludzi
+
+* Trzymanie definicji diagramów w repozytorium git - przy czym jenkis przy pomocy pluginu tworzy takie repozytorium - adres dostępny w UI jenkinsa
+* `Jenkins task` - wywołanie innego joba jenkinsowego o określonej nazwie
 
 ![jenkow_model](doc/jenkow_model.png)
 ![jenkow_execution_sequence](doc/jenkow_execution_sequence.png)
