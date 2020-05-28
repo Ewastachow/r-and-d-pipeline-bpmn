@@ -1,5 +1,25 @@
 # R&D BPMN in projects development
 
+## Temat projektu
+
+Analiza możliwości budowy środowiska pozwalającego na automatyzację pracy 
+z aplikacjami z uwzględnieniem procesów biznesowych (modelowania procesów)
+
+Środowisko bazujące na jenkinsie, sonarze, bitbucketcie oraz biblioteka skryptów jenkinsowych 
+i przykładowy projekt, którego flow zostanie zautomatyzowane za pomocą tych narzędzi.
+Pipeline będzie domyślnie wspierał aplikacje napisane w języku java oraz korzystające 
+z mavena jako narzędzia do budowania. Pipeline będzie odpowiedzialny za budowanie, 
+testowanie, statyczną analizę kodu oraz deploy aplikacji.
+Analiza literaturowa zastosowania modeli procesów w CICD, przykłady z literatury, 
+gdzie i jak stosowano, na których etapach.
+
+### Czyli
+
+Projekt składa się z 2 części:
+* Środowisko integracyjne dla pracy nad projektem z uwzględniem badanis pokrycia ścieżek w diagramach BPMN
+* Tworzenie pipelinów jako modeli BPMN przy użyciu Jenkow
+
+
 ## Jenkins & Sonar infrastructure
 Plik: [docker-compose.yml](r-and-d-infrastructure/docker-compose.yml)
 
@@ -458,7 +478,7 @@ Działanie bazuje na silniku Activity:
 * bazuje na javie (tak jak jenkins)
 * wsparcie dla eclipse w kontekście tworzenia diagramów
 
-#### Co jak poco dlaczego
+#### Co? Jak? Po co? Dlaczego?
 Problem: orchiestracja jobów - ogarnięcie zależności między nimi
 
 * Dodanie `Jenkins task` jak dowolnego innego taska w takim diagramie (np. `User task` / `Script task`).
@@ -475,23 +495,3 @@ Ze względu na to że projekt nie jest utrzymywany i nie jest kompatybilny z Jen
 umieściłam je w katalogu `jenkow`, niestety nie gwarantuje pomyślnego uruchomienia flow nawet z ich pomocą.
 Instrukcja konfiguracji: [https://wiki.jenkins.io/pages/viewpage.action?pageId=60918754](https://wiki.jenkins.io/pages/viewpage.action?pageId=60918754)
 
-## jBPM
-https://plugins.jenkins.io/jbpm-workflow-plugin/
-
-https://plugins.jenkins.io/jbpm-embedded-plugin/
-
-https://wiki.jenkins.io/display/JENKINS/jBPM+Integration+with+Jenkins
-
-
-TODO
-
-## Artykuły
-### Automatic Verification of BPMN Models
-https://www.researchgate.net/publication/339068865_Automatic_Verification_of_BPMN_Models
-
-TODO
-
-### BPMN in the Wild: BPMN on GitHub.com
-https://www.researchgate.net/publication/341000641_BPMN_in_the_Wild_BPMN_on_GitHubcom
-
-TODO
